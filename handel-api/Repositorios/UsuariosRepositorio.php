@@ -1,15 +1,15 @@
 <?php
 namespace php\repositorios;
 
-use php\interfaces\IUsuariosRepositorio;
+use php\interfaces\IUsuarios;
 use php\modelos\Usuario;
 
 
-include "../interfaces/IUsuariosRepositorio.php";
+include "../Interfaces/IUsuarios.php";
 include "../modelos/Usuario.php";
 
 
-class UsuariosRepositorio implements IUsuariosRepositorio
+class IUsuarios implements IUsuarios
 {    
     protected $conexion;   
     public function __construct($conexion)

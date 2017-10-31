@@ -1,5 +1,5 @@
 <?php
-namespace php\modelos;
+namespace clases;
 
 class Resultado
 {   

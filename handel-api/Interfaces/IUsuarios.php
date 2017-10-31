@@ -2,7 +2,7 @@
 namespace php\Interfaces;
 use php\modelos\Usuario;
 
-interface IUsuariosRepositorio
+interface IUsuarios
 {   
     //data mapper
     public function insertar(Usuario $usuario);

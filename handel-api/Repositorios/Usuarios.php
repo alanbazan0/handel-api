@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-include '../clases/Utilidades.php';
-include '../clases/AdministradorConexion.php';
+include '../Clases/Utilidades.php';
+include '../Clases/AdministradorConexion.php';
 include '../repositorios/UsuariosRepositorio.php';
 
 

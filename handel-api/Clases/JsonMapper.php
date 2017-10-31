@@ -1,5 +1,5 @@
 <?php
-namespace php\clases;
+namespace clases;
 
 use InvalidArgumentException;
 use ReflectionClass;
