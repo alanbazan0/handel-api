@@ -1,15 +1,15 @@
 <?php
-namespace php\repositorios;
+namespace repositorios;
 
-use php\interfaces\IUsuarios;
-use php\modelos\Usuario;
+use interfaces\IUsuariosConsultas;
 
 
-include "../Interfaces/IUsuarios.php";
+
+include "../Interfaces/IUsuariosConsultas.php";
 include "../modelos/Usuario.php";
 
 
-class IUsuarios implements IUsuarios
+class UsuariosRepositorio implements IUsuariosConsultas
 {    
     protected $conexion;   
     public function __construct($conexion)
@@ -17,20 +17,7 @@ class IUsuarios implements IUsuarios
         $this->conexion = $conexion;
     }
     
-    public function insertar(Usuario $usuario)
-    {
-        
-    }
-
-    public function eliminar(Usuario $usuario)
-    {
-        
-    }
-
-    public function actualizar(Usuario $usuario)
-    {
-        
-    }
+  
 
     public function consultarPorIdContrasena($id, $contrasena)
     {       

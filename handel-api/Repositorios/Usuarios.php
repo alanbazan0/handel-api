@@ -1,6 +1,6 @@
 <?php
-use php\clases\AdministradorConexion;
-use php\repositorios\UsuariosRepositorio;
+use clases\AdministradorConexion;
+use repositorios\UsuariosRepositorio;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
