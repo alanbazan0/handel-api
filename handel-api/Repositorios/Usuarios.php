@@ -1,50 +1,55 @@
 <?php
 use clases\AdministradorConexion;
+use clases\Resultado;
 use repositorios\UsuariosRepositorio;
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 include '../Clases/Utilidades.php';
 include '../Clases/AdministradorConexion.php';
+include '../Clases/Resultado.php';
 include '../repositorios/UsuariosRepositorio.php';
-
-
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=UTF-8');
 
-$administrador_conexion = new AdministradorConexion();
+$administradorConexion = new AdministradorConexion();
 
 $conexion;
+$resultado = new Resultado();
 try
 {
-    $conexion = $administrador_conexion->abrir();
+    $conexion = $administradorConexion->abrir();
     if($conexion)
     {
         $accion = REQUEST('accion');
         $repositorio = new UsuariosRepositorio($conexion);
         switch ($accion)
         {        
-            case 'consultarPorIdContrasena':
-                $id = REQUEST('id');
-                $contrasena = REQUEST('contrasena');
-                $usuario = $repositorio->consultarPorIdContrasena($id, $contrasena) ;     
-                if($usuario!=null)
-                    echo json_encode($usuario);
+            case 'consultarAcceso':
+                $credenciales = json_decode(REQUEST('credenciales'));              
+                $resultado = $repositorio->consultarAcceso($credenciales);   
+               
+            break;
+            default:
+                $resultado->mensajeError = "Acción no válida";
             break;
         }
+        
     }
         
 }
 catch(Exception $e)
 {
-    echo $e->getMessage(), '\n';
+    $resultado->mensajeError = $e->getMessage();
 }
 finally
 {
-    $administrador_conexion->cerrar($conexion);    
+    if($resultado!=null)
+        echo json_encode($resultado);
+    $administradorConexion->cerrar($conexion);    
 }
 
 

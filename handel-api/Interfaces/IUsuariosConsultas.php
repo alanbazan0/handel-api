@@ -4,6 +4,6 @@ namespace Interfaces;
 
 interface IUsuariosConsultas
 {  
-    public function consultarPorIdContrasena($id, $contrasena);
+    public function consultarAcceso($credenciales);
 }
 
