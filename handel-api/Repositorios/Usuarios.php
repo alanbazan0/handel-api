@@ -34,7 +34,7 @@ try
                
             break;
             default:
-                $resultado->mensajeError = "Acción no válida";
+                $resultado->MensajeError = "Acción no válida";
             break;
         }
         
@@ -43,7 +43,7 @@ try
 }
 catch(Exception $e)
 {
-    $resultado->mensajeError = $e->getMessage();
+    $resultado->MensajeError = $e->getMessage();
 }
 finally
 {

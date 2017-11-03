@@ -5,11 +5,12 @@ class Resultado
 {   
     public function __construct()
     {
-        $this->mensajeError = "";
+        
+        $this->MensajeError = "";
         
     }
-    public $mensajeError;
-    public $valor;
+    public $MensajeError;
+    public $Valor;
 }
   
 

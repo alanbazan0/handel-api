@@ -34,25 +34,25 @@ class UsuariosRepositorio implements IUsuariosConsultas
                         if ($sentencia->fetch())
                         {
                             $usuario = (object) [
-                                'id' =>  utf8_encode($id),
-                                'correoElectronico' => utf8_encode($correoElectronico)                           
+                                'Id' =>  utf8_encode($id),
+                                'CorreoElectronico' => utf8_encode($correoElectronico)                           
                             ];    
-                            $resultado->valor = $usuario;
+                            $resultado->Valor = $usuario;
                         }
                         else
-                            $resultado->mensajeError = "La combinación de usuario y contraseña es incorrecta.";
+                            $resultado->MensajeError = "La combinación de usuario y contraseña es incorrecta.";
                     }
                     else
-                        $resultado->mensajeError = "Falló el enlace del resultado";
+                        $resultado->MensajeError = "Falló el enlace del resultado";
                 }
                 else
-                    $resultado->mensajeError = "Falló la ejecución (" . $this->conexion->errno . ") " . $this->conexion->error;  
+                    $resultado->MensajeError = "Falló la ejecución (" . $this->conexion->errno . ") " . $this->conexion->error;  
             }            
             else
-                $resultado->mensajeError = "Falló el enlace de parámetros";             
+                $resultado->MensajeError = "Falló el enlace de parámetros";             
         }       
         else
-            $resultado->mensajeError = "Falló la preparación: (" . $this->conexion->errno . ") " . $this->conexion->error;  
+            $resultado->MensajeError = "Falló la preparación: (" . $this->conexion->errno . ") " . $this->conexion->error;  
         return $resultado;
     }    
     
