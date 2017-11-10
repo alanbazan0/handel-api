@@ -19,8 +19,10 @@ class UsuariosRepositorio implements IUsuariosConsultas
     public function consultarAcceso($credenciales)
     {       
         $resultado = new Resultado();
-        $consulta = "SELECT Us_id id, Us_mail correoElectronico " .
-                    "FROM Usuarios " .
+        $consulta = "SELECT Us_id id, Us_mail correoElectronico, U.Emp_id empleadoId, Emp_nombre nombre, Emp_apellido_paterno apellidoPaterno, Em_nombre Empresa " .
+                    "FROM Usuarios U " .
+                    "   INNER JOIN Empleado E ON U.Emp_id = E.Emp_id " .
+                    "   INNER JOIN Empresa EM ON E.Em_id = EM.Em_id " .
                     "WHERE Us_mail = ? AND Us_contrasena = ?";
        
         if($sentencia = $this->conexion->prepare($consulta))
@@ -29,13 +31,17 @@ class UsuariosRepositorio implements IUsuariosConsultas
             {
                 if($sentencia->execute())
                 {                
-                    if ($sentencia->bind_result($id, $correoElectronico))
+                    if ($sentencia->bind_result($id, $correoElectronico, $empleadoId, $nombre, $apellidoPaterno, $empresa))
                     {                               
                         if ($sentencia->fetch())
                         {
                             $usuario = (object) [
                                 'Id' =>  utf8_encode($id),
-                                'CorreoElectronico' => utf8_encode($correoElectronico)                           
+                                'CorreoElectronico' => utf8_encode($correoElectronico),
+                                'EmpleadoId' => utf8_encode($empleadoId),
+                                'Nombre' => utf8_encode($nombre),
+                                'ApellidoPaterno' => utf8_encode($apellidoPaterno),
+                                'Empresa' => utf8_encode($empresa)    
                             ];    
                             $resultado->Valor = $usuario;
                         }
