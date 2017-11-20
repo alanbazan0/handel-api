@@ -14,10 +14,19 @@ class ProcedimientosRepositorio implements IProcedimientosConsultas
     {
         $this->conexion = $conexion;
     }  
-
+    public function codificar($cadena)
+    {       
+       // $utf8 = 'ÄÖÜ'; // file must be UTF-8 encoded
+        $iso88591_1 = utf8_decode($utf8);
+        $iso88591_2 = iconv('UTF-8', 'ISO-8859-1', $utf8);
+        $iso88591_2 = mb_convert_encoding($utf8, 'ISO-8859-1', 'UTF-8');
+        
+        return $iso88591_2;
+    }
     public function consultarPorEmpleado($empleadoId)
     {       
         $resultado = new Resultado();
+      // $this-> conexion->query("SET NAMES utf8");
         $consulta = "SELECT Procedimiento.Pr_id id,Pr_codigo codigo, Pr_nombre nombre ".
                     "FROM Empleado_procedimiento ".
                     "JOIN Procedimiento ON Procedimiento.Pr_id = Empleado_procedimiento.Pr_id ".
@@ -45,7 +54,7 @@ class ProcedimientosRepositorio implements IProcedimientosConsultas
                             $registro = (object) [
                                 'Id' =>  utf8_encode($id),
                                 'Codigo' => utf8_encode($codigo),  
-                                'Nombre' => utf8_encode($nombre) 
+                                'Nombre' => $nombre 
                             ];    
                             array_push($registros, $registro);
                         }
