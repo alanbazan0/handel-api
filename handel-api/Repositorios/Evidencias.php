@@ -33,8 +33,7 @@ try
         {        
             case 'insertar':
                 $archivo =
-                $evidencia = json_decode(REQUEST('evidencia'));   
-                
+                $evidencia = json_decode(REQUEST('evidencia'));                   
                 $resultado = $repositorio->insertar($evidencia);   
                 if($resultado->Valor=="OK")
                 {
@@ -42,6 +41,12 @@ try
                     $archivo = $_FILES["archivo"];            
                     $carpeta = "../uploads/";
                     $resultado = $adminstradorArchivos->subir($carpeta,$archivo);
+                    if($resultado->MensajeError=="")
+                    {                     
+                        
+                        $resultado = $repositorio->insertarDetalle($evidencia,$archivo["name"]);   
+                        
+                    }
                 }
                
             break;

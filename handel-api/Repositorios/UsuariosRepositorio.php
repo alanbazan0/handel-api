@@ -19,7 +19,7 @@ class UsuariosRepositorio implements IUsuariosConsultas
     public function consultarAcceso($credenciales)
     {       
         $resultado = new Resultado();
-        $this->conexion->query("SET NAMES utf8");
+       // $this->conexion->query("SET NAMES utf8");
         $consulta = "SELECT Us_id id, Us_mail correoElectronico, U.Emp_id empleadoId, Emp_nombre nombre, Emp_apellido_paterno apellidoPaterno, EM.Em_id empresaId, Em_nombre nombreEmpresa, S.Es_id sedeId, A.Ea_id areaId " .
                     "FROM Usuarios U " .
                     "   INNER JOIN Empleado E ON U.Emp_id = E.Emp_id " .
@@ -42,10 +42,10 @@ class UsuariosRepositorio implements IUsuariosConsultas
                                 'Id' =>  utf8_encode($id),
                                 'CorreoElectronico' => utf8_encode($correoElectronico),
                                 'EmpleadoId' => utf8_encode($empleadoId),
-                                'Nombre' => utf8_encode($nombre),
-                                'ApellidoPaterno' => utf8_encode($apellidoPaterno),
+                                'Nombre' => $nombre,
+                                'ApellidoPaterno' => $apellidoPaterno,
                                 'EmpresaId' => utf8_encode($empresaId),
-                                'NombreEmpresa' => utf8_encode($nombreEmpresa),
+                                'NombreEmpresa' => $nombreEmpresa,
                                 'SedeId' => utf8_encode($sedeId),
                                 'AreaId' => utf8_encode($areaId)
                             ];    
