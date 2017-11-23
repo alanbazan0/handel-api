@@ -3,6 +3,7 @@ use clases\AdministradorConexion;
 use clases\AdministradorArchivos;
 use clases\Resultado;
 use repositorios\EvidenciasRepositorio;
+use clases\AdministradorCorreo;
 
 
 
@@ -12,6 +13,7 @@ ini_set('display_errors', 1);
 include '../Clases/Utilidades.php';
 include '../Clases/AdministradorConexion.php';
 include '../Clases/AdministradorArchivos.php';
+include '../Clases/AdministradorCorreo.php';
 include '../Clases/Resultado.php';
 include '../Repositorios/EvidenciasRepositorio.php';
 
@@ -35,17 +37,20 @@ try
                 $archivo =
                 $evidencia = json_decode(REQUEST('evidencia'));                   
                 $resultado = $repositorio->insertar($evidencia);   
-                if($resultado->Valor=="OK")
+                if($resultado->MensajeError=="")
                 {
                     $adminstradorArchivos = new AdministradorArchivos();
                     $archivo = $_FILES["archivo"];            
                     $carpeta = "../uploads/";
                     $resultado = $adminstradorArchivos->subir($carpeta,$archivo);
                     if($resultado->MensajeError=="")
-                    {                     
-                        
+                    {                    
                         $resultado = $repositorio->insertarDetalle($evidencia,$archivo["name"]);   
-                        
+                        if($resultado->MensajeError=="")
+                        {                            
+                           $adminstradorCorreo = new AdministradorCorreo();
+                           $resultado = $adminstradorCorreo->enviar($evidencia->CorreoElectronico, $evidencia->NombreUsuario, $evidencia->NombreProcedimiento, $archivo["name"]);
+                        }
                     }
                 }
                
