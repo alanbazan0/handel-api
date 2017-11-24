@@ -78,7 +78,7 @@ class AdministradorCorreo
         $cabecera .= "Bcc: contacto@gmail.com\r\n"; //Copia oculta
         $cabecera .= "Content-type: text/html; charset=UTF-8\r\n";
         
-        $correo = "alanbazan@hotmail.com";
+        //$correo = "alanbazan@hotmail.com";
         // Enviar mail
         $resultadoMail= mail($correo, $asunto, $mensaje, $cabecera);
         

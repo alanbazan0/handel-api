@@ -38,11 +38,11 @@ class ProcedimientosRepositorio implements IProcedimientosConsultas
                     "INNER JOIN Empleado_procedimiento ON Empleado_procedimiento.Pr_id = Evidencia.Pr_id ".
                     "WHERE Ev_fecha >= CONCAT( YEAR( NOW( ) ) ,  '/', MONTH( NOW( ) ) ,  '/',  '01' ) ".
                     "AND Ev_fecha <= CONCAT( YEAR( NOW( ) ) ,  '/', MONTH( NOW( ) ) ,  '/',  '29' ) ".
-                    "AND Evidencia.Emp_id = Empleado_procedimiento.Emp_id)";
+                    "AND Evidencia.Emp_id = ?)";
        
         if($sentencia = $this->conexion->prepare($consulta))
         {   
-            if($sentencia->bind_param("i",$empleadoId))
+            if($sentencia->bind_param("ii",$empleadoId,$empleadoId))
             {
                 if($sentencia->execute())
                 {                
