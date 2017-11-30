@@ -52,7 +52,7 @@ try
                         if($resultado->MensajeError=="")
                         {                            
                            $adminstradorCorreo = new AdministradorCorreo();
-                           $resultado = $adminstradorCorreo->enviar($evidencia->CorreoElectronico, $evidencia->NombreUsuario, $evidencia->NombreProcedimiento, $archivo["name"]);
+                           $resultado = $adminstradorCorreo->enviarRecordatorio($evidencia->CorreoElectronico, $evidencia->NombreUsuario, $evidencia->NombreProcedimiento, $archivo["name"]);
                         }
                     }
                 }
