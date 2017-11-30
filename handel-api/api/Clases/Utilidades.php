@@ -15,5 +15,13 @@ function REQUEST($name, $def = '')
             return $def;
 }
 
+function FILES($name)
+{
+    if (isset($_FILES[$name]))
+        return $_FILES[$name];
+     else
+        return null;
+}
+
 
 

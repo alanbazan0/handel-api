@@ -40,12 +40,15 @@ try
                 if($resultado->MensajeError=="")
                 {
                     $adminstradorArchivos = new AdministradorArchivos();
-                    $archivo = $_FILES["archivo"];            
-                    $carpeta = "../uploads/";
+                    $archivo = FILES("archivo");            
+                    $carpeta = "../../uploads/";
                     $resultado = $adminstradorArchivos->subir($carpeta,$archivo);
                     if($resultado->MensajeError=="")
                     {                    
-                        $resultado = $repositorio->insertarDetalle($evidencia,$archivo["name"]);   
+                        $nombreArchivo = "";
+                        if($archivo!=null)
+                            $nombreArchivo = $archivo["name"];
+                        $resultado = $repositorio->insertarDetalle($evidencia,$nombreArchivo);   
                         if($resultado->MensajeError=="")
                         {                            
                            $adminstradorCorreo = new AdministradorCorreo();
