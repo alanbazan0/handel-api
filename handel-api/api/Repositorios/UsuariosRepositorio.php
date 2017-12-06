@@ -18,14 +18,14 @@ class UsuariosRepositorio implements IUsuariosConsultas
 
     public function consultarAcceso($credenciales)
     {       
-        $resultado = new Resultado();
-       // $this->conexion->query("SET NAMES utf8");
-        $consulta = "SELECT Us_id id, Us_mail correoElectronico, U.Emp_id empleadoId, Emp_nombre nombre, Emp_apellido_paterno apellidoPaterno, EM.Em_id empresaId, Em_nombre nombreEmpresa, S.Es_id sedeId, A.Ea_id areaId " .
+        $resultado = new Resultado();       
+        $consulta = "SELECT U.Us_id id, Us_mail correoElectronico, U.Emp_id empleadoId, Emp_nombre nombre, Emp_apellido_paterno apellidoPaterno, EM.Em_id empresaId, Em_nombre nombreEmpresa, S.Es_id sedeId, A.Ea_id areaId, Up_opcion permiso " .
                     "FROM Usuarios U " .
                     "   INNER JOIN Empleado E ON U.Emp_id = E.Emp_id " .
                     "   INNER JOIN Empresa EM ON E.Em_id = EM.Em_id " .
                     "   INNER JOIN Empresa_area A ON A.Ea_id = E.Ea_id " .
                     "   INNER JOIN Empresa_sede S ON S.Es_id = E.Es_id " .
+                    "   INNER JOIN Usuario_permiso P ON P.Us_id = U.Us_id " .
                     "WHERE Us_mail = ? AND Us_contrasena = ?";
        
         if($sentencia = $this->conexion->prepare($consulta))
@@ -34,7 +34,7 @@ class UsuariosRepositorio implements IUsuariosConsultas
             {
                 if($sentencia->execute())
                 {                
-                    if ($sentencia->bind_result($id, $correoElectronico, $empleadoId, $nombre, $apellidoPaterno, $empresaId, $nombreEmpresa, $sedeId, $areaId))
+                    if ($sentencia->bind_result($id, $correoElectronico, $empleadoId, $nombre, $apellidoPaterno, $empresaId, $nombreEmpresa, $sedeId, $areaId, $permiso))
                     {                               
                         if ($sentencia->fetch())
                         {
@@ -47,7 +47,8 @@ class UsuariosRepositorio implements IUsuariosConsultas
                                 'EmpresaId' => utf8_encode($empresaId),
                                 'NombreEmpresa' => $nombreEmpresa,
                                 'SedeId' => utf8_encode($sedeId),
-                                'AreaId' => utf8_encode($areaId)
+                                'AreaId' => utf8_encode($areaId),
+                                'Permiso' => $permiso
                             ];    
                             $resultado->Valor = $usuario;
                         }
