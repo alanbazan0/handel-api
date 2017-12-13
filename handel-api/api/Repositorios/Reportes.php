@@ -34,8 +34,13 @@ try
             case 'consultarReporteEvidenciasEmpleadoMes':
                 $empleadoId =  REQUEST('empleadoId'); 
                 $mes =  REQUEST('mes');    
-                $resultado = $repositorio->reporteEvidenciasEmpleadoMes($empleadoId,$mes);
+                $resultado = $repositorio->consultarReporteEvidenciasEmpleadoMes($empleadoId,$mes);
             break;
+            case 'consultarJustificacionesEmpleadoMes':
+                $empleadoId =  REQUEST('empleadoId');
+                $mes =  REQUEST('mes');
+                $resultado = $repositorio->consultarJustificacionesEmpleadoMes($empleadoId,$mes);
+                break;
             default:
                 $resultado->MensajeError = "Acción no válida";
             break;

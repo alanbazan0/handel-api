@@ -3,8 +3,8 @@ namespace api\Interfaces;
 
 interface IReportesConsultas
 { 
-    public function consultarEvidenciasEnviadasEmpleadoMes($empleadoId, $mes);
-    public function consultarEvidenciasJustificadasEmpleadoMes($empleadoId, $mes);
-    public function cunsultarProcedimientosAsignadosEmpleadoMes($empleadoId, $mes);
+    public function consultarReporteEvidenciasEmpleadoMes($empleadoId, $mes);
+    public function consultarJustificacionesEmpleadoMes($empleadoId, $mes);
+    
 }
 
